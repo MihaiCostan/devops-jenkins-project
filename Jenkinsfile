@@ -25,8 +25,10 @@ pipeline{
             }
         }
         stage('3. Push to DockerHub') {
-            echo '=== Push imagine pe Docker Hub ==='
-            sh 'docker push ${DOCKER_USER}/${IMAGE_NAME}:${TAG}'
+            steps{
+                echo '=== Push imagine pe Docker Hub ==='
+                sh 'docker push ${DOCKER_USER}/${IMAGE_NAME}:${TAG}'
+            }
         }
     }
     post{
