@@ -9,13 +9,17 @@ pipeline{
     stages{
         stage('1. Install & Test') {
             steps{
-                echo '=== Rulare teste automate (Pytest) ==='
-                sh '''
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install -r requirements.txt
-                    pytest
-                '''
+                agent {
+                    docker {
+                        image 'python:3.11-slim'
+                        reuseNode true
+                    }
+                }
+                steps {
+                    echo '=== Rulare teste automate (Pytest) în container Python ==='
+                    sh 'pip install -r requirements.txt'
+                    sh 'pytest'
+                }
             }
         }
         stage('2. Build Docker Image') {
