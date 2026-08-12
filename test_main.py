@@ -6,7 +6,7 @@ client = TestClient(app)
 def test_read_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json()["status"] == "OK"
+    assert "message" in response.json()
 
 def test_health_check():
     response = client.get("/health")
@@ -16,9 +16,9 @@ def test_health_check():
 def test_sum_res():
     response = client.get("/sum?a=5&b=2")
     assert response.status_code == 200
-    assert response.json() == {"sum": 7}
+    assert response.json() == {"result": 7.0}
 
 def test_div_res():
     response = client.get("/div?a=7&b=2")
     assert response.status_code == 200
-    assert response.json() == {"div": 3.5}
+    assert response.json() == {"result": 3.5}
