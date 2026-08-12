@@ -28,7 +28,7 @@ pipeline{
             steps{
                 echo '=== Push imagine pe Docker Hub ==='
 
-                withCredentials([usernamePassword(credentialsId: 'docker_credentials', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
+                withCredentials([usernamePassword(credentialsId: 'Docker_credential', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
                     sh 'echo $DH_PASS | docker login -u $DH_USER --password-stdin'
                     sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:${TAG}"
                 }
