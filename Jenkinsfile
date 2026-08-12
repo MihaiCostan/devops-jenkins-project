@@ -10,8 +10,8 @@ pipeline{
         stage('1. Install & Test') {
             steps {
                 echo '=== Rulare teste automate (Pytest) ==='
-                sh 'pip install --break-system-packages -r requirements.txt'
-                sh 'pytest'
+                sh 'python3 -m pip install --break-system-packages -r requirements.txt'
+                sh 'python3 -m pytest'
             }
         }
         stage('2. Build Docker Image') {
