@@ -30,5 +30,11 @@ pipeline{
         always {
             sh 'rm -rf venv'
         }
+        success {
+            echo ' Pipeline-ul s-a executat cu succes!'
+        }
+        failure {
+            echo ' Pipeline-ul a eșuat!'
+        }
     }
 }
