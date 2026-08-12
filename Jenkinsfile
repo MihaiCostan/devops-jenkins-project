@@ -8,15 +8,9 @@ pipeline{
 
     stages{
         stage('1. Install & Test') {
-            agent {
-                docker {
-                    image 'python:3.11-slim'
-                    reuseNode true
-                }
-            }
-            steps{
-                echo '=== Rulare teste automate (Pytest) în container Python ==='
-                sh 'pip install -r requirements.txt'
+            steps {
+                echo '=== Rulare teste automate (Pytest) ==='
+                sh 'pip install --break-system-packages -r requirements.txt'
                 sh 'pytest'
             }
         }
