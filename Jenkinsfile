@@ -9,6 +9,7 @@ pipeline{
     stages{
         stage('1. Install & Test') {
             steps{
+                echo '=== Rulare teste automate (Pytest) ==='
                 sh '''
                     python3 -m venv venv
                     . venv/bin/activate
@@ -19,15 +20,18 @@ pipeline{
         }
         stage('2. Build Docker Image') {
             steps{
+                echo '=== Construire imagine Docker ==='
                 sh 'docker build -t ${DOCKER_USER}/${IMAGE_NAME}:${TAG} .'
             }
         }
         stage('3. Push to DockerHub') {
+            echo '=== Push imagine pe Docker Hub ==='
             sh 'docker push ${DOCKER_USER}/${IMAGE_NAME}:${TAG}'
         }
     }
     post{
         always {
+            echo '=== Curățare mediu de lucru ==='
             sh 'rm -rf venv'
         }
         success {
