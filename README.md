@@ -3,7 +3,7 @@ What i've done (linkin park)
 1. Prepared a Dockerfile.jenkins for a prepeared jenkins image, containing:
 - docker.io (for helping push new image to dockerhub)
 - python3, python3-pip, python3-venv (for python scrips, applications & tests)
-- junit (for showing tests results)
+- junit (for showing tests results, also integrated in Jenkins GUI for graphs etc.)
 
 2. Prepared a Dockerfile for the python app image to be created & pushed.
 
