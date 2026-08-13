@@ -22,3 +22,5 @@ def test_div_res():
     response = client.get("/div?a=7&b=2")
     assert response.status_code == 200
     assert response.json() == {"result": 3.5}
+
+    #
