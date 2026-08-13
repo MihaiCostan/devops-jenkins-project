@@ -43,19 +43,19 @@ pipeline{
                 string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                 string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
-                    sh '''
+                    sh """
                     aws ssm send-command \
                         --region eu-central-1 \
                         --instance-ids "i-0abf6afedb7f10ae2" \
                         --document-name "AWS-RunShellScript" \
                         --parameters 'commands=[
-                            "echo $DH_PASS | sudo docker login -u $DH_USER --password-stdin",
-                            "docker pull mihai2312/devops_python_project:latest",
+                            "echo ${DH_PASS} | sudo docker login -u {$DH_USER} --password-stdin",
+                            "docker pull ${DOCKER_USER}/${IMAGE_NAME}:${TAG}",
                             "docker stop app || true",
                             "docker rm app || true",
-                            "docker run -d --name app -p 8000:8000 --restart always mihai2312/devops_python_project:latest"
+                            "docker run -d --name app -p 8000:8000 --restart always ${DOCKER_USER}/${IMAGE_NAME}:${TAG}"
                         ]'
-                '''
+                """
                 }
             }
         }
