@@ -39,7 +39,7 @@ pipeline{
                 echo '=== Deploy app to AWS EC2 instance'
                 withCredentials([sshUserPrivateKey(credentialsId:'EC2_SSH_KEY', keyFileVariable: 'SSH_KEY', usernameVariable: 'EC2_USER')]) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no -i $SSH_KEY $EC2_USER@http://18.195.224.87:8000 "
+                    ssh -o StrictHostKeyChecking=no -i $SSH_KEY $EC2_USER8.195.224.87 "
                         #1. Download the last image from DockerHub
                         sudo docker pull ${DOCKER_USER}/${IMAGE_NAME}:${TAG}
 
