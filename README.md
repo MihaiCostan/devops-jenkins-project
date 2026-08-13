@@ -34,3 +34,16 @@ Main goal: Launch EC2 instance by jenkins with the docker image uploaded on dock
 4. SSH to EC2 where connection to docker is commited, pull the image + cleanup from old containers and also run the new container
 
 5. FastAPI app is now accessible from anywhere on the internet now!
+
+Phase 3 (day 2)
+
+1. I want to add security, because i have port 22 open for all the internet. i have 2 ways:
+    1. I can use aws ssm (with iam role & aws ssm send-command from jenkins pipeline) so i have to update the jenkins packets with awscli
+    2. I can open port 22 only for the jenkins server
+        - here could be a problem, because i run jenkins locally so it means i should open port 22 for the public ip address of my network, which means that it would be vulnerable to the devices connected on the sam LAN
+        - also secured because i am using ssh keys
+    I will go with the aws ssm, maybe i ll implement open port 22 later
+
+2. Edited from ssh to aws ssm send-command, but firstly sended credentials
+
+3. 

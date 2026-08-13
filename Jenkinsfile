@@ -39,12 +39,14 @@ pipeline{
                 echo '=== Deploy app to AWS EC2 instance'
                 withCredentials([
                 sshUserPrivateKey(credentialsId:'EC2_SSH_KEY', keyFileVariable: 'SSH_KEY', usernameVariable: 'EC2_USER'),
-                usernamePassword(credentialsId: 'Docker_credential', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')
+                usernamePassword(credentialsId: 'Docker_credential', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS'),
+                string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
                     sh '''
                     aws ssm send-command \
                         --region eu-central-1 \
-                        --instance-ids "i-0123456789abcdef0" \
+                        --instance-ids "i-0abf6afedb7f10ae2" \
                         --document-name "AWS-RunShellScript" \
                         --parameters 'commands=[
                             "docker pull mihai2312/devops_python_project:latest",
