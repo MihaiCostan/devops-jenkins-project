@@ -20,8 +20,8 @@ pipeline{
         }
         stage('2. Build Docker Image') {
             steps{
-                echo '=== Construire imagine Docker ==='
-                sh 'docker build -t ${DOCKER_USER}/${IMAGE_NAME}:${TAG} .'
+                echo '=== Construire imagine Docker (x86/amd64) ==='
+                sh 'docker build --platform linux/amd64 -t ${DOCKER_USER}/${IMAGE_NAME}:${TAG} .'
             }
         }
         stage('3. Push to DockerHub') {
@@ -34,6 +34,12 @@ pipeline{
                 }
             }
         }
+        // stage('4. Deploy to AWS EC2') {
+        //     setps{
+        //         echo '=== Deploy app to AWS EC2 instance'
+                
+        //     }
+        // }
     }
     post{
         always {
