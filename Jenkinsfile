@@ -37,13 +37,15 @@ pipeline{
         stage('4. Deploy to AWS EC2') {
             steps{
                 echo '=== Deploy app to AWS EC2 instance'
-                withCredentials([sshUserPrivateKey(credentialsId:'EC2_SSH_KEY', keyFileVariable: 'SSH_KEY', usernameVariable: 'EC2_USER')]),
-                usernamePassword(credentialsId: 'Docker_credential', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS') {
+                withCredentials([
+                sshUserPrivateKey(credentialsId:'EC2_SSH_KEY', keyFileVariable: 'SSH_KEY', usernameVariable: 'EC2_USER'),
+                usernamePassword(credentialsId: 'Docker_credential', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')
+                ]) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no -i $SSH_KEY $EC2_USER@18.195.224.87 "
                         #1. Login to docker
                         echo $DH_PASS | sudo docker login -u $DH_USER --password-stdin
-                        
+
                         #2. Download the last image from DockerHub
                         sudo docker pull ${DOCKER_USER}/${IMAGE_NAME}:${TAG}
 
