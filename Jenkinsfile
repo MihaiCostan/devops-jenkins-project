@@ -15,7 +15,7 @@ pipeline{
                     . .venv/bin/activate
                     pip install -r requirements.txt
                     pytest --junitxml=test-results.xml
-                    junit 'result.xml
+                    junit 'result.xml'
                 '''
             }
         }
