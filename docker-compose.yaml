@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.jenkins
-    container_name: jenkins_python_docker
+    container_name: jenkins_python_docker_new_image_for_tests
     user: root
     ports:
       - "8080:8080"
