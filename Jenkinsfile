@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment {
         DOCKER_USER = 'mihai2312'
-        IMAGE_NAME = 'devops_pyhton_project'
+        IMAGE_NAME = 'devops_python_project'
         TAG = 'latest'
     }
 
