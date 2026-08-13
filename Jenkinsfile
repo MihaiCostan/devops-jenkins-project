@@ -15,8 +15,8 @@ pipeline{
                     . .venv/bin/activate
                     pip install -r requirements.txt
                     pytest --junitxml=test_results.xml
-                    junit 'test_results.xml'
                 '''
+                junit 'test_results.xml'
             }
         }
         stage('2. Build Docker Image') {
