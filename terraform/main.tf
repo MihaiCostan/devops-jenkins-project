@@ -48,7 +48,7 @@ resource "aws_iam_instance_profile" "ssm_profile" {
     role = aws_iam_role.ssm_role.name
 }
 
-#AWS Firewall (open ports on 22 (SSH), 8000 (FastAPI), 80(HTTP))
+#AWS Firewall (open ports on 8000 (FastAPI), 80(HTTP))
 resource "aws_security_group" "fastapi_sg" {
     name = "fastapi-app-sg"
     description = "Permits access on port 8000, 80 & 22"
@@ -73,8 +73,8 @@ resource "aws_instance" "fastapi_server" {
     ami = data.aws_ami.ubuntu.id
     instance_type = var.instace_type
     vpc_security_group_ids = [aws_security_group.fastapi_sg.id]
-    iam_instance_profile = aws_iam_instance_profile.ssm_profile.name
-    key_name = "ec2_jenkins_key"
+    iam_instance_profile = aws_iam_instance_profile.ssm_profile.name #for the ssm connection to the instance
+    key_name = "ec2_jenkins_key" # for ssh connection
 
     #User Data: automate docker install & container run
     user_data = <<-EOF
@@ -84,9 +84,6 @@ resource "aws_instance" "fastapi_server" {
     apt-get install -y docker.io
     systemctl start docker
     systemctl enable docker
-
-    docker pull ${var.docker_image}
-    docker run -d --name app -p 8000:8000 ${var.docker_image}
     EOF
 
     tags = {
