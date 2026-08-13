@@ -43,7 +43,7 @@ pipeline{
                 string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                 string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
                 ]) {
-                    sh """
+                    sh '''
                     aws ssm send-command \
                         --region eu-central-1 \
                         --instance-ids "i-0abf6afedb7f10ae2" \
@@ -55,7 +55,7 @@ pipeline{
                             "docker rm app || true",
                             "docker run -d --name app -p 8000:8000 --restart always ${DOCKER_USER}/${IMAGE_NAME}:${TAG}"
                         ]'
-                """
+                '''
                 }
             }
         }
