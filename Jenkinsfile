@@ -49,7 +49,7 @@ pipeline{
                         --instance-ids "i-0abf6afedb7f10ae2" \
                         --document-name "AWS-RunShellScript" \
                         --parameters 'commands=[
-                            "echo $DH_PASS | sudo docker login -u $DH_USER --password-stdin"
+                            "echo $DH_PASS | sudo docker login -u $DH_USER --password-stdin",
                             "docker pull mihai2312/devops_python_project:latest",
                             "docker stop app || true",
                             "docker rm app || true",
