@@ -16,7 +16,6 @@ pipeline{
                     pip install -r requirements.txt
                     pytest --junitxml=test_results.xml
                 '''
-                junit 'test_results.xml'
             }
         }
         stage('2. Build Docker Image') {
@@ -40,6 +39,8 @@ pipeline{
         always {
             echo '=== Curățare mediu de lucru ==='
             sh 'rm -rf .venv'
+            echo '=== Afisare rezultate teste(junit) ==='
+            junit 'test_results.xml'
         }
         success {
             echo ' Pipeline-ul s-a executat cu succes!'
