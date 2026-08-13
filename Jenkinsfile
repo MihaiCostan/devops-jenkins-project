@@ -42,21 +42,17 @@ pipeline{
                 usernamePassword(credentialsId: 'Docker_credential', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')
                 ]) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no -i $SSH_KEY $EC2_USER@63.177.99.150 "
-                        #1. Login to docker
-                        echo $DH_PASS | sudo docker login -u $DH_USER --password-stdin
-
-                        #2. Download the last image from DockerHub
-                        sudo docker pull ${DOCKER_USER}/${IMAGE_NAME}:${TAG}
-
-                        #3. Stop and delete old working containers
-                        sudo docker stop app || true
-                        sudo docker rm app || true
-
-                        #4. Run new container
-                        sudo docker run -d --name app -p 8000:8000 --restart always ${DOCKER_USER}/${IMAGE_NAME}:${TAG}
-                        "
-                    '''
+                    aws ssm send-command \
+                        --region eu-central-1 \
+                        --instance-ids "i-0123456789abcdef0" \
+                        --document-name "AWS-RunShellScript" \
+                        --parameters 'commands=[
+                            "docker pull mihai2312/devops_python_project:latest",
+                            "docker stop app || true",
+                            "docker rm app || true",
+                            "docker run -d --name app -p 8000:8000 --restart always mihai2312/devops_python_project:latest"
+                        ]'
+                '''
                 }
             }
         }
