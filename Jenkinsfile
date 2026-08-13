@@ -35,7 +35,7 @@ pipeline{
             }
         }
         stage('4. Deploy to AWS EC2') {
-            setps{
+            steps{
                 echo '=== Deploy app to AWS EC2 instance'
                 withCredentials([sshUserPrivateKey(credentialsId:'EC2_SSH_KEY', keyFileVariable: 'SSH_KEY', usernameVariable: 'EC2_USER')])
                 sh '''
