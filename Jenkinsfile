@@ -14,7 +14,8 @@ pipeline{
                     python3 -m venv .venv
                     . .venv/bin/activate
                     pip install -r requirements.txt
-                    pytest
+                    pytest --junitxml=test-results.xml
+                    junit 'result.xml
                 '''
             }
         }
@@ -38,7 +39,7 @@ pipeline{
     post{
         always {
             echo '=== Curățare mediu de lucru ==='
-            sh 'rm -rf venv'
+            sh 'rm -rf .venv'
         }
         success {
             echo ' Pipeline-ul s-a executat cu succes!'
