@@ -46,4 +46,4 @@ Phase 3 (day 2)
 
 2. Edited from ssh to aws ssm send-command, but firstly sended credentials
 
-3. 
+3. encountered a security warning, Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure. Affected argument(s) used the following variable(s): [DH_PASS] that will be fixed later.
