@@ -1,13 +1,13 @@
-What i've done (linkin park)
+What i've done
 
 1. Prepared a Dockerfile.jenkins for a prepeared jenkins image, containing:
-- docker.io (for helping push new image to dockerhub)
+- docker.io (for helping push new python app image to dockerhub)
 - python3, python3-pip, python3-venv (for python scrips, applications & tests)
 - junit (for showing tests results, also integrated in Jenkins GUI for graphs etc.)
 
 2. Prepared a Dockerfile for the python app image to be created & pushed.
 
-3. Prepared a Jenkinsfile for the Jenkins pipeline stages(using Groovy syntax): python tests, build docker image build and push it to dockerhub.
+3. Prepared a Jenkinsfile for the Jenkins pipeline stages(using Groovy syntax): python tests, build docker image and push it to dockerhub.
 
 4. Prepared a docker-compose.yaml file for the Dockerfile.jenkins image to be auto-created with credentials, ports, volumes & other conditions
 
@@ -37,7 +37,7 @@ Main goal: Launch EC2 instance by jenkins with the docker image uploaded on dock
 
 Phase 3 (day 2)
 
-1. I want to add security, because i have port 22 open for all the internet. i have 2 ways:
+1. I want to add security, because i have port 22 open for all the internet. i have 2 ways (maybe more):
     1. I can use aws ssm (with iam role & aws ssm send-command from jenkins pipeline) so i have to update the jenkins packets with awscli
     2. I can open port 22 only for the jenkins server
         - here could be a problem, because i run jenkins locally so it means i should open port 22 for the public ip address of my network, which means that it would be vulnerable to the devices connected on the sam LAN
