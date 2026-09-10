@@ -46,7 +46,7 @@ pipeline{
                     sh """
                     aws ssm send-command \
                         --region eu-central-1 \
-                        --instance-ids "i-0abf6afedb7f10ae2" \
+                        --instance-ids "i-0ba5faca6ef6c52e5" \
                         --document-name "AWS-RunShellScript" \
                         --parameters 'commands=[
                             "echo \\"${DH_PASS}\\" | docker login -u \\"${DH_USER}\\" --password-stdin",
